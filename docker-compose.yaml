@@ -7,6 +7,16 @@ services:
     volumes:
       - ./web/static:/static
 
+  rubyone:
+    image: suryakencana007/api-ruby:latest
+    environment:
+      - PESAN="heloo from ruby one"
+
+  rubytwo:
+    image: suryakencana007/api-ruby:latest
+    environment:
+      - PESAN="heloo from ruby two"
+
   nginx:
     image: nginx:latest
     ports:
