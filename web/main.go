@@ -26,12 +26,20 @@ func init() {
 	rendr = renderer.New()
 }
 
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	if err := rendr.Template(w, http.StatusOK, []string{"/static/home.tpl"}, nil); err != nil {
-		suki.Error("Home Handler",
-			suki.Field("Error", err),
-		)
-	}
+func homeHandler(docTitle string) http.HandlerFunc {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if len(docTitle) < 1 {
+				docTitle = "Default TODO APPS"
+			}
+			dataDoc := struct{
+				Title string
+			}{Title: docTitle}
+			if err := rendr.Template(w, http.StatusOK, []string{"static/home.tpl"}, dataDoc); err != nil {
+				suki.Error("Home Handler",
+					suki.Field("Error", err),
+				)
+			}
+	})
 }
 
 // FileServer conveniently sets up a http.FileServer handler to serve
@@ -56,19 +64,19 @@ func FileServer(r ruuto.Router, path string, root http.FileSystem) {
 
 func main() {
 	directory := flag.String("d", STATIC_DIR, "the directory of static file to host")
+	title := os.Getenv("DOC_TITLE")
 	flag.Parse()
 
+	suki.Info(*directory)
 	stopChan := make(chan os.Signal, 1)
 	signal.Notify(stopChan, syscall.SIGINT, syscall.SIGTERM)
 
 	r := ruuto.NewChiRouter()
 	r.Use(ruuto.Recovery(), ruuto.Logger())
 
-	
-
 	FileServer(r, STATIC_DIR, http.Dir(*directory))
 	
-	r.GET("/", homeHandler)
+	r.GET("/", homeHandler(title))
 
 	srv := &http.Server{
 			Addr: port,
