@@ -3,6 +3,10 @@ from locust import HttpLocust, TaskSet, task, between
 
 class UserBehavior(TaskSet):
 
+    @task(4)
+    def golang(l):
+        l.client.get("/api/golang")
+
     @task(2)
     def python(l):
         l.client.get("/api/python")
