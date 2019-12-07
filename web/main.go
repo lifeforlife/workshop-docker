@@ -27,7 +27,7 @@ func init() {
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	if err := rendr.Template(w, http.StatusOK, []string{"/static/home.tpl"}, nil); err != nil {
+	if err := rendr.Template(w, http.StatusOK, []string{"static/home.tpl"}, nil); err != nil {
 		suki.Error("Home Handler",
 			suki.Field("Error", err),
 		)

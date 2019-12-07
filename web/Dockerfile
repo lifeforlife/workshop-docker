@@ -22,6 +22,7 @@ FROM alpine:3.8
 # Add non root user and certs
 RUN apk --no-cache add ca-certificates \
   && addgroup -S app && adduser -S -g app app \
+  && mkdir -p /home/app/static \
   && chown app /home/app
 
 WORKDIR /home/app
@@ -30,4 +31,4 @@ COPY --from=build /app/src/handler/bin/todos .
 USER app
 EXPOSE 9099
 
-CMD ./todos
+CMD ./todos -d "/home/app/static"
