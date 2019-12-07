@@ -1,4 +1,4 @@
-FROM golang:alpine as build
+FROM golang:1.12-alpine3.9 as build
 
 ENV GO111MODULE=on
 
@@ -26,6 +26,7 @@ RUN apk --no-cache add ca-certificates \
   && chown app /home/app
 
 WORKDIR /home/app
+
 COPY --from=build /app/src/handler/bin/todos .
 
 USER app

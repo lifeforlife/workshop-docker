@@ -1,11 +1,27 @@
 version: '3.6'
 services:
-  web:
+  web-one:
     image: suryakencana007/web-todo:latest
-    ports:
-      - "9099:9099"
+    environment:
+      - DOC_TITLE=WEB TODO ONE
     volumes:
       - ./web/static:/home/app/static
+  web-two:
+    image: suryakencana007/web-todo:latest
+    environment:
+      - DOC_TITLE=WEB TODO TWO
+    volumes:
+      - ./web/static:/home/app/static
+
+  rubyone:
+    image: suryakencana007/api-ruby:latest
+    environment:
+      - PESAN="heloo from ruby one"
+
+  rubytwo:
+    image: suryakencana007/api-ruby:latest
+    environment:
+      - PESAN="heloo from ruby two"
 
   nginx:
     image: nginx:latest
