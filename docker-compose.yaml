@@ -34,6 +34,16 @@ services:
     environment:
       - PESAN="heloo from python two"
 
+  golangone:
+    image: suryakencana007/api-golang:latest
+    environment:
+      - PESAN="heloo from golang one"
+
+  golangtwo:
+    image: suryakencana007/api-golang:latest
+    environment:
+      - PESAN="heloo from golang two"
+
   nginx:
     image: nginx:latest
     ports:
