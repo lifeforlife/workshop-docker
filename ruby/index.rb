@@ -2,6 +2,7 @@ require 'sinatra'
 require 'json'
 
 set :bind, '0.0.0.0'
+configure { set :server, :puma }
 
 get '/api/ruby' do
 	content_type :json
