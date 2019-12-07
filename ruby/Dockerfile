@@ -1,5 +1,6 @@
-FROM ruby:alpine3.9
+FROM ruby:alpine3.10
 
+RUN apk update && apk --no-cache add build-base openssl gmp-dev ruby-dev
 ENV PESAN 'hello from ruby'
 WORKDIR /home/app
 
@@ -19,4 +20,4 @@ WORKDIR /home/app
 
 EXPOSE 4567
 
-CMD ruby index.rb
+CMD ruby index.rb -s Puma

@@ -6,6 +6,7 @@ services:
       - DOC_TITLE=WEB TODO ONE
     volumes:
       - ./web/static:/home/app/static
+
   web-two:
     image: suryakencana007/web-todo:latest
     environment:
@@ -39,3 +40,13 @@ services:
       - "8077:80"
     volumes:
       - ./config/nginx_default.conf:/etc/nginx/conf.d/default.conf
+
+  locustest:
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    environment:
+      - LOCUSTFILE_PATH=/mnt/locust/locustfile.py
+      - TARGET_URL=http://nginx:8077
+    volumes:
+      - ./locust:/mnt/locust

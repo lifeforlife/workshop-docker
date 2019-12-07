@@ -9,7 +9,7 @@ class UserBehavior(TaskSet):
 
     @task(1)
     def ruby(l):
-        l.client.post("/api/ruby")
+        l.client.get("/api/ruby")
 
     @task(3)
     def web(l):
