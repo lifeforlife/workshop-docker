@@ -5,7 +5,7 @@ services:
     ports:
       - "9099:9099"
     volumes:
-      - ./web/static:/static
+      - ./web/static:/home/app/static
 
   nginx:
     image: nginx:latest
