@@ -23,6 +23,16 @@ services:
     environment:
       - PESAN="heloo from ruby two"
 
+  pythonone:
+    image: suryakencana007/api-python:latest
+    environment:
+      - PESAN="heloo from python one"
+
+  pythontwo:
+    image: suryakencana007/api-python:latest
+    environment:
+      - PESAN="heloo from python two"
+
   nginx:
     image: nginx:latest
     ports:
